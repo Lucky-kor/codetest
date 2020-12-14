@@ -5,15 +5,29 @@ public class dolldrawgame {
         String inputBoard;
         String inputMoves;
 
-        int arrayFirstBoard = 0;
-        int arraySecondBoard = 0;
-        int arrayMoves = 0;
-
         Scanner scan = new Scanner(System.in);
 
         inputBoard = scan.nextLine();       //배열값 받기
         inputMoves = scan.nextLine();       //움직임값 받기
 
+        arraysFirstBoard(inputBoard);
+        arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard));
+        arraysMoves(inputMoves);
+        board(inputBoard);
+        moves(inputMoves);
+
+        for (int i = 0; i < arraysFirstBoard(inputBoard); i++) {
+            for (int j = 0; j < arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard)); j++) {
+                System.out.print(board(inputBoard)[i][j]);
+            }
+            System.out.println();
+        }
+        for (int j = 0; j < arraysMoves(inputMoves); j++) {
+            System.out.print(moves(inputMoves)[j]);
+        }
+    }
+    private static int arraysFirstBoard(String inputBoard){
+        int arrayFirstBoard = 0;
         for (int i = 0; i < inputBoard.length(); i++) {     //인형을 담는 통의 첫배열 길이 구하기
             char cheakBoard = inputBoard.charAt(i);
             if (cheakBoard == ']') {
@@ -21,6 +35,10 @@ public class dolldrawgame {
             }
         }
         arrayFirstBoard--;
+        return arrayFirstBoard;
+    }
+    private static int arraysSecondBoard(String inputBoard,int arraysFirstBoard){
+        int arraySecondBoard=0;
         for (int j = 0; j < inputBoard.length(); j++) {   //인형을 담는통 이중배열중 두번째 배열의 길 구하기
             char checkBoard = inputBoard.charAt(j);
             if (checkBoard == '[' || checkBoard == ']' || checkBoard == ',') {
@@ -29,7 +47,11 @@ public class dolldrawgame {
                 arraySecondBoard++;
             }
         }
-        arraySecondBoard = arraySecondBoard / arrayFirstBoard;
+        arraySecondBoard = arraySecondBoard / arraysFirstBoard;
+        return arraySecondBoard;
+    }
+    private static int arraysMoves(String inputMoves){
+        int arrayMoves=0;
         for (int k = 0; k < inputMoves.length(); k++) {     //움직이는 숫자의 배열의 길이 구하
             char checkMoves = inputMoves.charAt(k);
             if (checkMoves == '[' || checkMoves == ']' || checkMoves == ',') {
@@ -37,10 +59,12 @@ public class dolldrawgame {
             } else {
                 arrayMoves++;
             }
-
         }
+        return arrayMoves;
+    }
+    private static int[][] board(String inputBoard){
+        int[][] board = new int[arraysFirstBoard(inputBoard)][arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard))];
 
-        int[][] board = new int[arrayFirstBoard][arraySecondBoard];
         int number1 = 0;
         int number2 = 0;
         String cheakBoard = null;
@@ -59,8 +83,10 @@ public class dolldrawgame {
                 number2++;
             }
         }
-
-        int[] moves = new int[arrayMoves];
+        return board;
+    }
+    private static int[] moves(String inputMoves){
+        int[] moves = new int[arraysMoves(inputMoves)];
         String checkMoves = null;
         int number3 = 0;
 
@@ -73,14 +99,6 @@ public class dolldrawgame {
                 number3++;
             }
         }
-        for (int i = 0; i < arrayFirstBoard; i++) {
-            for (int j = 0; j < arraySecondBoard; j++) {
-                System.out.print(board[i][j]);
-            }
-            System.out.println();
-        }
-        for (int j = 0; j < arrayMoves; j++) {
-            System.out.print(moves[j]);
-        }
+        return moves;
     }
 }
