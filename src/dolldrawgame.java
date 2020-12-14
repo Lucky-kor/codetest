@@ -1,6 +1,8 @@
+package com.codetest.doll;
 import java.util.Scanner;
 
 public class dolldrawgame {
+
     public static void main(String[] args) {
         String inputBoard;
         String inputMoves;
@@ -16,6 +18,8 @@ public class dolldrawgame {
         board(inputBoard);
         moves(inputMoves);
 
+
+        //배열 출력문 완성이후 삭제
         for (int i = 0; i < arraysFirstBoard(inputBoard); i++) {
             for (int j = 0; j < arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard)); j++) {
                 System.out.print(board(inputBoard)[i][j]);
@@ -25,7 +29,9 @@ public class dolldrawgame {
         for (int j = 0; j < arraysMoves(inputMoves); j++) {
             System.out.print(moves(inputMoves)[j]);
         }
+
     }
+
     private static int arraysFirstBoard(String inputBoard){
         int arrayFirstBoard = 0;
         for (int i = 0; i < inputBoard.length(); i++) {     //인형을 담는 통의 첫배열 길이 구하기
@@ -37,6 +43,7 @@ public class dolldrawgame {
         arrayFirstBoard--;
         return arrayFirstBoard;
     }
+
     private static int arraysSecondBoard(String inputBoard,int arraysFirstBoard){
         int arraySecondBoard=0;
         for (int j = 0; j < inputBoard.length(); j++) {   //인형을 담는통 이중배열중 두번째 배열의 길 구하기
@@ -50,6 +57,7 @@ public class dolldrawgame {
         arraySecondBoard = arraySecondBoard / arraysFirstBoard;
         return arraySecondBoard;
     }
+
     private static int arraysMoves(String inputMoves){
         int arrayMoves=0;
         for (int k = 0; k < inputMoves.length(); k++) {     //움직이는 숫자의 배열의 길이 구하
@@ -62,6 +70,7 @@ public class dolldrawgame {
         }
         return arrayMoves;
     }
+
     private static int[][] board(String inputBoard){
         int[][] board = new int[arraysFirstBoard(inputBoard)][arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard))];
 
@@ -85,6 +94,7 @@ public class dolldrawgame {
         }
         return board;
     }
+
     private static int[] moves(String inputMoves){
         int[] moves = new int[arraysMoves(inputMoves)];
         String checkMoves = null;
@@ -101,4 +111,5 @@ public class dolldrawgame {
         }
         return moves;
     }
+
 }
