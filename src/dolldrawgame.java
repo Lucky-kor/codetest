@@ -1,4 +1,4 @@
-package com.codetest.doll;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class dolldrawgame {
@@ -12,27 +12,43 @@ public class dolldrawgame {
         inputBoard = scan.nextLine();       //배열값 받기
         inputMoves = scan.nextLine();       //움직임값 받기
 
-        arraysFirstBoard(inputBoard);
-        arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard));
-        arraysMoves(inputMoves);
-        board(inputBoard);
-        moves(inputMoves);
-
-
-        //배열 출력문 완성이후 삭제
-        for (int i = 0; i < arraysFirstBoard(inputBoard); i++) {
-            for (int j = 0; j < arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard)); j++) {
-                System.out.print(board(inputBoard)[i][j]);
-            }
-            System.out.println();
-        }
-        for (int j = 0; j < arraysMoves(inputMoves); j++) {
-            System.out.print(moves(inputMoves)[j]);
-        }
+        System.out.println(solution(board(inputBoard), moves(inputMoves)));
 
     }
 
-    private static int arraysFirstBoard(String inputBoard){
+    public static int solution(int[][] board, int[] moves) {
+        int answer = 0;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        for (int i = 0; i < moves.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[j][moves[i] - 1] != 0) {
+                    list.add(board[j][moves[i] - 1]);
+                    board[j][moves[i] - 1] = 0;
+                    break;
+                }
+            }
+        }
+        int start = 0;
+
+        while (start < list.size() - 1) {
+            if (list.get(start) == list.get(start + 1)) {
+                list.remove(start);
+                list.remove(start);
+                answer += 2;
+                if (start == 0) {
+                    continue;
+                } else {
+                    start--;
+                }
+            } else {
+                start++;
+            }
+        }
+        return answer;
+    }
+
+    private static int arraysFirstBoard(String inputBoard) {
         int arrayFirstBoard = 0;
         for (int i = 0; i < inputBoard.length(); i++) {     //인형을 담는 통의 첫배열 길이 구하기
             char cheakBoard = inputBoard.charAt(i);
@@ -44,8 +60,8 @@ public class dolldrawgame {
         return arrayFirstBoard;
     }
 
-    private static int arraysSecondBoard(String inputBoard,int arraysFirstBoard){
-        int arraySecondBoard=0;
+    private static int arraysSecondBoard(String inputBoard, int arraysFirstBoard) {
+        int arraySecondBoard = 0;
         for (int j = 0; j < inputBoard.length(); j++) {   //인형을 담는통 이중배열중 두번째 배열의 길 구하기
             char checkBoard = inputBoard.charAt(j);
             if (checkBoard == '[' || checkBoard == ']' || checkBoard == ',') {
@@ -58,8 +74,8 @@ public class dolldrawgame {
         return arraySecondBoard;
     }
 
-    private static int arraysMoves(String inputMoves){
-        int arrayMoves=0;
+    private static int arraysMoves(String inputMoves) {
+        int arrayMoves = 0;
         for (int k = 0; k < inputMoves.length(); k++) {     //움직이는 숫자의 배열의 길이 구하
             char checkMoves = inputMoves.charAt(k);
             if (checkMoves == '[' || checkMoves == ']' || checkMoves == ',') {
@@ -71,8 +87,8 @@ public class dolldrawgame {
         return arrayMoves;
     }
 
-    private static int[][] board(String inputBoard){
-        int[][] board = new int[arraysFirstBoard(inputBoard)][arraysSecondBoard(inputBoard,arraysFirstBoard(inputBoard))];
+    private static int[][] board(String inputBoard) {
+        int[][] board = new int[arraysFirstBoard(inputBoard)][arraysSecondBoard(inputBoard, arraysFirstBoard(inputBoard))];
 
         int number1 = 0;
         int number2 = 0;
@@ -95,7 +111,7 @@ public class dolldrawgame {
         return board;
     }
 
-    private static int[] moves(String inputMoves){
+    private static int[] moves(String inputMoves) {
         int[] moves = new int[arraysMoves(inputMoves)];
         String checkMoves = null;
         int number3 = 0;
