@@ -7,13 +7,19 @@ public class notFinishPlayer {
         String participant = scan.nextLine();
         String completion = scan.nextLine();
 
-//    for(int i=0;i<getParticipant(participant).size();i++){
-//        System.out.println(getParticipant(participant).get(i));
-//    }
-//        System.out.println("------------------");
-//    for(int i=0;i<getParticipant(participant).size();i++){
-//        System.out.println(getCompletion(participant).get(i));
-//    }
+        ArrayList<String> setParticipant = getParticipant(participant);
+        ArrayList<String> setCompletion = getCompletion(completion);
+
+        for(int i=0;i<setParticipant.size();i++){
+            for(int j=0;j<setCompletion.size();j++){
+                if(setParticipant.get(i).equals(setCompletion.get(j))){
+                    setParticipant.remove(i);
+                    i--;
+                    break;
+                }
+            }
+        }
+        System.out.println(setParticipant.get(0));
     }
     private static ArrayList<String> getParticipant(String participant){
         int countFirst=0;
