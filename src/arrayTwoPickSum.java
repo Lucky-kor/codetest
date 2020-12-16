@@ -7,29 +7,9 @@ public class arrayTwoPickSum {
 
         Scanner scan = new Scanner(System.in);
         String scanWords = scan.nextLine();
-        ArrayList<Integer> arraySumList = new ArrayList<Integer>();
 
-        for (int i = 0; i < arrayWords((scanWords)).length - 1; i++) {
-            for (int j = i + 1; j < arrayWords(scanWords).length; j++) {
-                arraySumList.add(arrayWords(scanWords)[i] + arrayWords(scanWords)[j]);
-            }
-        }
+        printWord(arrayCompareList(arrayAllSum(scanWords)));
 
-        for (int i = 0; i < arraySumList.size() - 1; i++) {
-            for (int j = i + 1; j < arraySumList.size(); j++) {
-                if (arraySumList.get(i).equals(arraySumList.get(j))) {
-                    arraySumList.remove(j);
-                    j--;
-                } else {
-                    continue;
-                }
-            }
-        }
-        arraySumList.sort(Comparator.naturalOrder());
-
-        for (int i = 0; i < arraySumList.size(); i++) {
-            System.out.println(arraySumList.get(i));
-        }
 
     }
 
@@ -61,5 +41,41 @@ public class arrayTwoPickSum {
             }
         }
         return words;
+    }
+    private static ArrayList<Integer> arrayAllSum(String scanWords){
+
+        ArrayList<Integer> arraySumList = new ArrayList<Integer>();
+
+        for (int i = 0; i < arrayWords((scanWords)).length - 1; i++) {      //배열내 모든 숫자를 순차적으로 더해 List로 저장
+            for (int j = i + 1; j < arrayWords(scanWords).length; j++) {
+                arraySumList.add(arrayWords(scanWords)[i] + arrayWords(scanWords)[j]);
+            }
+        }
+        return arraySumList;
+    }
+    private static ArrayList<Integer> arrayCompareList(ArrayList<Integer> arrayAllList){
+        for (int i = 0; i < arrayAllList.size() - 1; i++) {     //List내 같은숫자 찾아내서 제거하기
+            for (int j = i + 1; j < arrayAllList.size(); j++) {
+                if (arrayAllList.get(i).equals(arrayAllList.get(j))) {
+                    arrayAllList.remove(j);
+                    j--;
+                } else {
+                    continue;
+                }
+            }
+        }
+        arrayAllList.sort(Comparator.naturalOrder());
+        return arrayAllList;
+    }
+    private static void printWord(ArrayList<Integer> arrayCompareList){
+        System.out.print("[");
+        for (int i = 0; i < arrayCompareList.size(); i++) {
+            if(i!=arrayCompareList.size()-1) {
+                System.out.print(arrayCompareList.get(i)+",");
+            }else{
+                System.out.print(arrayCompareList.get(i));
+            }
+        }
+        System.out.println("]");
     }
 }
