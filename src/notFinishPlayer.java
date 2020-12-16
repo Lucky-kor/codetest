@@ -14,6 +14,7 @@ public class notFinishPlayer {
             for(int j=0;j<setCompletion.size();j++){
                 if(setParticipant.get(i).equals(setCompletion.get(j))){
                     setParticipant.remove(i);
+                    setCompletion.remove(j);
                     i--;
                     break;
                 }
