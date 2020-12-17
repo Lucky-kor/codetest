@@ -30,7 +30,7 @@ public class mathExample {
         }
         return answer;
     }
-
+    //전체정답과 학생들의 정답을 비교하여 최고점자를 찾아내어 리스트에 추가하는 메소드
     private static ArrayList<Integer> getList(int[] answer, int[] student1, int[] student2, int[] student3, int[] scores) {
         int max = 0;
         for (int i = 0; i < answer.length; i++) {
