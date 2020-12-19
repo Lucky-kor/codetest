@@ -1,16 +1,42 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class rentSportswear {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int allNumber = scan.nextInt();
-        String lost = scan.nextLine();
-        String reserve = scan.nextLine();
-        int answer = 0;
+        String lost = scan.next();
+        String reserve = scan.next();
 
-        int[] lostNumber = lostCheck(lost);
-        int[] reserveNumber = reserveCheck(reserve);
+        Integer[] lostNumber = Arrays.stream(lostCheck(lost)).boxed().toArray(Integer[]::new);
+        Integer[] reserveNumber = Arrays.stream(reserveCheck(reserve)).boxed().toArray(Integer[]::new);
 
+        ArrayList<Integer> getLostNumber = new ArrayList<>(Arrays.asList(lostNumber));
+        ArrayList<Integer> getReserveNumber = new ArrayList<>(Arrays.asList(reserveNumber));
+
+        for(int i=0;i< getLostNumber.size();i++){
+            for(int j=0;j< getReserveNumber.size();j++){
+                if(getLostNumber.get(i)== getReserveNumber.get(j)){
+                    getLostNumber.remove(i);
+                    getReserveNumber.remove(j);
+                    i--;
+                    break;
+                }
+            }
+        }
+        for(int i=0;i<getLostNumber.size();i++){
+            for(int j=0;j<getReserveNumber.size();j++){
+                if(getLostNumber.get(i).equals(getReserveNumber.get(j)) || getLostNumber.get(i) == getReserveNumber.get(j)-1 || getLostNumber.get(i) == getReserveNumber.get(j)+1){
+                    getLostNumber.remove(i);
+                    getReserveNumber.remove(j);
+                    i--;
+                    break;
+                }
+            }
+        }
+        allNumber = allNumber-getLostNumber.size();
+        System.out.println(allNumber);
 
     }
     private static int[] lostCheck(String lost){    //도난당한 학생의 배열 정리하는 메소드
